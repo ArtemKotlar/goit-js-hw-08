@@ -4,9 +4,10 @@ import { throttle } from 'lodash';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
-const showSeconds = throttle(({ seconds }) => {
-  console.log('seconds', seconds);
-}, 1000);
+player.on('timeupdate', throttle(onPlay, 1000));
 
-player.on('timeupdate', showSeconds);
-player.setCurrentTime(30.456);
+function onPlay({ seconds }) {
+  localStorage.setItem('videoplayer-current-time', seconds);
+}
+
+player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
