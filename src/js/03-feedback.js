@@ -1,6 +1,5 @@
 import { throttle } from 'lodash';
 
-// player.on('timeupdate', showSeconds);
 const STORAGE_KEY = 'feedback-form-state';
 
 const form = document.querySelector('.feedback-form');
@@ -21,12 +20,15 @@ function onSubmitForm(evt) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-(function dataFromLocalStorage() {
+function dataFromLocalStorage() {
   const data = JSON.parse(localStorage.getItem('STORAGE_KEY'));
   const email = document.querySelector('.feedback-form input');
   const message = document.querySelector('.feedback-form textarea');
-  if (data) {
-    email.value = data.email;
-    message.value = data.message;
+  if (data === null) {
+    return;
   }
-})();
+  email.value = data.email || '';
+  message.value = data.message || '';
+}
+
+dataFromLocalStorage();
