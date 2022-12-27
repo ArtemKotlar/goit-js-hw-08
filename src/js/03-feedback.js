@@ -14,10 +14,10 @@ function onFormData(evt) {
 }
 
 function onSubmitForm(evt) {
+  console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
   evt.preventDefault();
   evt.currentTarget.reset();
   localStorage.removeItem(STORAGE_KEY);
-  console.log(formData);
 }
 
 function dataFromLocalStorage() {
@@ -25,7 +25,6 @@ function dataFromLocalStorage() {
   formData = data;
   const email = document.querySelector('.feedback-form input');
   const message = document.querySelector('.feedback-form textarea');
-
   email.value = data.email || '';
   message.value = data.message || '';
 }
